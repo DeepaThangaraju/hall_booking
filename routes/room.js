@@ -1,6 +1,7 @@
 import express from 'express';
 import { getRoomById, deleteRoomById, getRoomByQuery, createRoom, editById } from '../roommethod.js';
 const router=express.Router();
+//getting room by id
 router.route("/:id").get(async (request,response)=>{
     const {id}=request.params;
     console.log(id);
@@ -10,6 +11,7 @@ router.route("/:id").get(async (request,response)=>{
     response.send(room)
     :response.status(404).send({message:"Room not found"})
  })
+ //delete room by id
  .delete(async (request,response)=>{
    const {id}=request.params;
    console.log(id);
@@ -19,6 +21,7 @@ router.route("/:id").get(async (request,response)=>{
    response.send(room)
    :response.status(404).send({message:"Room not found"})
  })
+ //edit room by id
  .put(async (request,response)=>{
     const {id}=request.params;
     const data=request.body;
@@ -27,7 +30,7 @@ router.route("/:id").get(async (request,response)=>{
     const editedlist=await getRoomById(id);
     response.send(editedlist);
   });
- 
+ //get room by query 
  router.route("/").get(async (request,response)=>{
    const filter=request.query;
    console.log(filter)
@@ -41,6 +44,7 @@ router.route("/:id").get(async (request,response)=>{
      const rooms=await getRoomByQuery(filter);
      response.send(rooms);
  })
+ //create room by post method
  .post(async (request,response)=>{
    const data=request.body;
    console.log(data);
